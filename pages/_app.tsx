@@ -3,12 +3,15 @@ import Head from 'next/head';
 import CssBaseline from '@mui/material/CssBaseline';
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import { ThemeProvider } from '@mui/material/styles';
+import { DefaultSeo } from 'next-seo';
 
 import ConfirmationProvider from '~/utils/confirmation'
 import Layout from '~/components/Layout'
 import Snackbar from '~/config/snackbar'
 import createEmotionCache from '~/utils/createEmotionCache';
 import theme from '~/styles/theme';
+
+import defaultConfigSeo from '../next-seo.config'
 
 import '~/styles/globals.css'
 
@@ -31,6 +34,7 @@ export default function MyApp(props: MyAppProps) {
   ComponentProvider = (
     <ConfirmationProvider>
       <Snackbar>
+        <DefaultSeo {...defaultConfigSeo} />
         {ComponentProvider}
       </Snackbar>
     </ConfirmationProvider>
