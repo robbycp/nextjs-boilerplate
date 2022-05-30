@@ -10,4 +10,6 @@ declare global {
   type AppPropsWithLayout = AppProps & {
     Component: NextPageWithLayout
   }
+
+  type SetState<T> = React.Dispatch<React.SetStateAction<T>>
 }

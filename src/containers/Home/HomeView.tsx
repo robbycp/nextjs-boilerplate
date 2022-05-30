@@ -8,6 +8,9 @@ import { useSnackbar, VariantType } from 'notistack';
 import { styled } from '@mui/system';
 
 import Link from '~/components/Link';
+import Dialog from '~/components/Dialog/DialogBasic'
+import { useConfirmation } from '~/utils/confirmation';
+// import DialogConfirm from '~/components/Dialog/DialogConfirm';
 
 const SnackbarContainer = styled('div')`
   display: flex;
@@ -15,6 +18,7 @@ const SnackbarContainer = styled('div')`
 `
 
 const Home: NextPage = () => {
+  // Snackbar
   const { enqueueSnackbar } = useSnackbar()
   const handleClickSnackbar = (variant: VariantType) => () => {
     enqueueSnackbar(`Show snackbar ${variant}`, {
@@ -23,6 +27,23 @@ const Home: NextPage = () => {
   }
   const variants: VariantType[] = ['default', 'info', 'success', 'error', 'warning']
 
+  // Dialog
+  const { openConfirmation } = useConfirmation()
+  const [isDialogOpen, setIsDialogOpen] = React.useState(false)
+  const handleClickConfirm = () => {
+    openConfirmation({
+      title: 'Title Confirmation',
+      message: 'Are you sure?',
+      onClose: () => {
+        console.log('click close')
+      },
+      onSubmit: () => {
+        console.log('click submit')
+      },
+      textButtonCancel: 'Tutup',
+      textButtonConfirm: 'Kirim',
+    })
+  }
   return (
     <Container maxWidth="lg">
       <Box
@@ -47,7 +68,17 @@ const Home: NextPage = () => {
             </Button>
           ))}
         </SnackbarContainer>
+        <Button onClick={() => setIsDialogOpen(true)}>Dialog Basic</Button>
+        <Button onClick={handleClickConfirm}>Imperative Dialog Confirm</Button>
       </Box>
+      <Dialog
+        maxWidth="md"
+        isOpen={isDialogOpen}
+        onClose={() => setIsDialogOpen(false)}
+        title="Title dialog basic"
+      >
+        <Typography variant="body2">This is ialog basic</Typography>
+      </Dialog>
     </Container>
   );
 };

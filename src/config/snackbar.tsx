@@ -6,7 +6,7 @@ import { Theme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
 type Props = {
-  children: React.ReactElement
+  children: React.ReactNode
 }
 type SnackbarConfig = Omit<SnackbarProviderProps, 'children'>
 
@@ -39,7 +39,6 @@ const Snackbar = ({
   const onClickDismiss = (key: SnackbarKey) => () => { 
     notistackRef.current?.closeSnackbar(key);
   }
-  console.log('classes', classes)
   return (
     <SnackbarProvider
       {...snackbarConfig}
