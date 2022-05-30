@@ -10,7 +10,8 @@ import { styled } from '@mui/system';
 import Link from '~/components/Link';
 import Dialog from '~/components/Dialog/DialogBasic'
 import { useConfirmation } from '~/utils/confirmation';
-// import DialogConfirm from '~/components/Dialog/DialogConfirm';
+
+import Todo from './Todo'
 
 const SnackbarContainer = styled('div')`
   display: flex;
@@ -70,6 +71,7 @@ const Home: NextPage = () => {
         </SnackbarContainer>
         <Button onClick={() => setIsDialogOpen(true)}>Dialog Basic</Button>
         <Button onClick={handleClickConfirm}>Imperative Dialog Confirm</Button>
+        <Todo />
       </Box>
       <Dialog
         maxWidth="md"
