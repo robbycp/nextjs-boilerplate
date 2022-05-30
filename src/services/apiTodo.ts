@@ -1,60 +1,67 @@
-import axios from 'axios'
-import UrlPattern from 'url-pattern';
+import {createAxios, createExportedEndpoint} from '~/utils/api';
 
-const axiosInstance = axios.create({
-  baseURL: 'https://crudcrud.com/api/5f1f3740dc6043e482aefd50b5847972',
-  timeout: 10000,
-  headers: {
-    'Cache-Control': 'no-store',
-    'Content-Type': 'application/json',
-  },
-});
-
-const getUrl = (urlPattern: string, params?: Record<string, unknown>) => {
-  const pattern = new UrlPattern(urlPattern);
-  return pattern.stringify(params);
+export interface Todo {
+  _id: string;
+  description: string;
+  completed: boolean;
+  createdAt: string;
+  owner: string;
+  updatedAt: string;
+  __v: number;
+}
+const initialTodo: Todo = {
+  _id: '',
+  description: '',
+  completed: false,
+  createdAt: '',
+  owner: '',
+  updatedAt: '',
+  __v: 0,
 };
 
-type Todo = {
-  id: number,
-  description: string,
+const apiCrudBase = createAxios({
+  baseURL: process.env.NEXT_PUBLIC_API_TODO ?? '',
+});
+
+export interface TodoEndpoints {
+  useTodoAdd: Endpoint<Pick<Todo, 'description'>, Todo>;
+  useTodoAllGet: Endpoint<{}, Todo[]>;
+  useTodoByIdGet: Endpoint<{}, Todo>;
+  useTodoByIdUpdate: Endpoint<{}, { data: Todo, success: boolean }>;
+  useTodoByIdDelete: Endpoint<{}, {}>;
 }
 
-export const getTodo = () => {
-  return axiosInstance.request<Todo[]>({
-    method: 'get',
-    url: '/task',
-  })
-}
-
-export const addTodo = (description: string) => {
-  return axiosInstance.request({
+const endpoints: TodoEndpoints = {
+  useTodoAdd: {
     method: 'post',
-    url: '/task',
-    data: {
-      description,
-    }
-  })
-}
-
-export const updateTodo = ({
-  id,
-  description,
-}: { id: string, description: string }) => {
-  const url = getUrl('/task/:id', { id })
-  return axiosInstance.request({
+    path: '/task',
+    response: {...initialTodo},
+  },
+  useTodoAllGet: {
+    method: 'get',
+    path: '/task',
+    response: [],
+  },
+  useTodoByIdGet: {
+    method: 'get',
+    path: '/task/:id',
+    response: {...initialTodo},
+  },
+  useTodoByIdUpdate: {
     method: 'put',
-    url,
-    data: {
-      description,
-    }
-  })
-}
-
-export const deleteTodo = (id: string) => {
-  const url = getUrl('/task/:id', { id })
-  return axiosInstance.request({
+    path: '/task/:id',
+    response: {
+      data: {
+        ...initialTodo,
+      },
+      success: true,
+    },
+  },
+  useTodoByIdDelete: {
     method: 'delete',
-    url,
-  })
-}
+    path: '/task/:id',
+    response: {},
+  }
+};
+
+export default createExportedEndpoint(apiCrudBase, endpoints);

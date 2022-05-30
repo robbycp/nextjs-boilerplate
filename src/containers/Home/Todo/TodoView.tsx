@@ -1,31 +1,31 @@
 import React, { useState} from 'react'
 import useSWR from 'swr';
-import { addTodo, getTodo } from 'src/services/apiTodo';
 import { Button, Grid, TextField, Typography } from '@mui/material';
 
-type Props = {}
+import apiTodo from '~/services/apiTodo';
 
-const TodoView = (props: Props) => {
-  const { data, error, mutate } = useSWR({
+const TodoView = () => {
+  const { data, mutate } = useSWR({
     path: '/task',
-  }, getTodo)
-  console.log('data', data)
-  console.log('error', error)
+  }, apiTodo.useTodoAllGet)
+
   const [tfNewTodo, setTfNewTodo] = useState('')
   const handleAddTodo = () => {
-    addTodo(tfNewTodo).then(() => mutate())
+    apiTodo.useTodoAdd({
+      data: { description: tfNewTodo },
+    }).then(() => mutate())
   }
   return (
     <div>
-      <Typography variant="h5">SWR todo</Typography>
+      <Typography variant="h5">SWR todo client side fetch</Typography>
       <TextField
         onChange={(e) => setTfNewTodo(e.target.value)}
         value={tfNewTodo}
       />
       <Button onClick={handleAddTodo}>Add</Button>
-      <Grid direction="column">
+      <Grid direction="column" container>
         {data?.data.map((todo) => (
-          <div key={todo.id}>{todo.description}</div>
+          <div key={todo._id}>{todo.description}</div>
         ))}
       </Grid>
     </div>
