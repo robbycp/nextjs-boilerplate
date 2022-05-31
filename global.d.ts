@@ -3,6 +3,10 @@ import type { NextPage } from 'next'
 import { AppProps } from 'next/app';
 import type { AxiosRequestConfig } from 'axios'
 declare global {
+  interface Window {
+    dataLayer: Record<string, any>[];
+  }
+
   type NextPageWithLayout = NextPage & {
     getLayout?: (page: ReactElement) => ReactNode
   }

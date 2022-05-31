@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Head from 'next/head';
 import CssBaseline from '@mui/material/CssBaseline';
+import Script from 'next/script'
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import { ThemeProvider } from '@mui/material/styles';
 import { DefaultSeo } from 'next-seo';
@@ -11,6 +12,7 @@ import Layout from '~/components/Layout'
 import Snackbar from '~/config/snackbar'
 import createEmotionCache from '~/utils/createEmotionCache';
 import theme from '~/styles/theme';
+import { GTM_ID, usePageAnalytics } from '~/services/analytics';
 
 import defaultConfigSeo from '../next-seo.config'
 
@@ -24,6 +26,7 @@ interface MyAppProps extends AppPropsWithLayout {
 }
 
 export default function MyApp(props: MyAppProps) {
+  usePageAnalytics()
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
 
   const getLayout = Component.getLayout ?? ((page) => 
@@ -36,6 +39,20 @@ export default function MyApp(props: MyAppProps) {
     <ConfirmationProvider>
       <Snackbar>
         <FlagsProvider>
+          {/* Google Tag Manager - Global base code */}
+          <Script
+            id="gtag-base"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `
+                (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                })(window,document,'script','dataLayer', '${GTM_ID}');
+              `,
+            }}
+          />
           <DefaultSeo {...defaultConfigSeo} />
           {ComponentProvider}
         </FlagsProvider>
