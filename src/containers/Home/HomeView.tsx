@@ -7,10 +7,11 @@ import Box from '@mui/material/Box';
 import { useSnackbar, VariantType } from 'notistack';
 import { styled } from '@mui/system';
 
-import Link from '~/components/Link';
 import Dialog from '~/components/Dialog/DialogBasic'
+import Link from '~/components/Link';
 import { useConfirmation } from '~/utils/confirmation';
 
+import RemoteConfig from './RemoteConfig'
 import Todo from './Todo'
 
 const SnackbarContainer = styled('div')`
@@ -71,6 +72,7 @@ const Home: NextPage = () => {
         </SnackbarContainer>
         <Button onClick={() => setIsDialogOpen(true)}>Dialog Basic</Button>
         <Button onClick={handleClickConfirm}>Imperative Dialog Confirm</Button>
+        <RemoteConfig />
         <Todo />
       </Box>
       <Dialog

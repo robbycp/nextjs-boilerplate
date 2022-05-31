@@ -6,6 +6,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { DefaultSeo } from 'next-seo';
 
 import ConfirmationProvider from '~/utils/confirmation'
+import FlagsProvider from '~/services/firebase-remote-config';
 import Layout from '~/components/Layout'
 import Snackbar from '~/config/snackbar'
 import createEmotionCache from '~/utils/createEmotionCache';
@@ -34,8 +35,10 @@ export default function MyApp(props: MyAppProps) {
   ComponentProvider = (
     <ConfirmationProvider>
       <Snackbar>
-        <DefaultSeo {...defaultConfigSeo} />
-        {ComponentProvider}
+        <FlagsProvider>
+          <DefaultSeo {...defaultConfigSeo} />
+          {ComponentProvider}
+        </FlagsProvider>
       </Snackbar>
     </ConfirmationProvider>
   )
