@@ -59,7 +59,7 @@ interface ExportedEndpoint {
 
 export const createAxios: CreateAxios = ({baseURL, baseHeaders}) => {
   return apiOptions => {
-    const {endpoint = {method: 'get', path: ''}, paramsUrl = {}} =
+    const {endpoint = {method: 'get', path: '/'}, paramsUrl = {}} =
       apiOptions || {};
 
     const method = endpoint.method;

@@ -86,11 +86,11 @@ export default function DialogCustom({
       maxWidth={maxWidth}
       open={isOpen}
       onClose={onClose}
-      aria-labelledby="alert-dialog-title"
-      aria-describedby="alert-dialog-description"
+      aria-labelledby="dialog-title"
+      aria-describedby="dialog-description"
     >
       {!!title && (
-        <StyledDialogTitle id="alert-dialog-title" onClose={onClose}>
+        <StyledDialogTitle id="dialog-title" data-testid="dialog-title" onClose={onClose}>
           {title}
         </StyledDialogTitle>
       )}
