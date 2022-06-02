@@ -3,7 +3,7 @@ import { styled } from '@mui/material/styles';
 import { Typography } from '@mui/material';
 
 import Link from '~/components/Link'
-import { version } from '../../../package.json'
+import npmPackage from '../../../package.json'
 
 const Container = styled('div')`
   padding: 30px;
@@ -43,7 +43,7 @@ const Footer = () => {
           ))}
         </Section>
       ))}
-      <Typography variant="subtitle2">v{version}</Typography>
+      <Typography variant="subtitle2">v{npmPackage.version}</Typography>
     </Container>
   )
 }
