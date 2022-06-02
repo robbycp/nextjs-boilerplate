@@ -72,6 +72,14 @@ const Home: NextPage = () => {
         </SnackbarContainer>
         <Button onClick={() => setIsDialogOpen(true)}>Dialog Basic</Button>
         <Button onClick={handleClickConfirm}>Imperative Dialog Confirm</Button>
+        <Button
+          type="button"
+          onClick={() => {
+            throw new Error("Sentry Frontend Error");
+          }}
+        >
+          Throw error send to sentry
+        </Button>
         <RemoteConfig />
         <Todo />
       </Box>
