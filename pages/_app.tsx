@@ -5,6 +5,7 @@ import Script from 'next/script'
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import { ThemeProvider } from '@mui/material/styles';
 import { DefaultSeo } from 'next-seo';
+import { appWithTranslation } from 'next-i18next';
 
 import ConfirmationProvider from '~/utils/confirmation'
 import FlagsProvider from '~/services/firebase-remote-config';
@@ -25,7 +26,7 @@ interface MyAppProps extends AppPropsWithLayout {
   emotionCache?: EmotionCache;
 }
 
-export default function MyApp(props: MyAppProps) {
+export default appWithTranslation((props: MyAppProps) => {
   usePageAnalytics()
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
 
@@ -72,4 +73,4 @@ export default function MyApp(props: MyAppProps) {
       </ThemeProvider>
     </CacheProvider>
   );
-}
+})

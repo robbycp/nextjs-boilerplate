@@ -26,6 +26,7 @@
     "firebase": "^9.8.2",
     "immer": "^9.0.14",
     "next": "12.1.5",
+    "next-i18next": "^11.0.0",
     "next-seo": "^5.4.0",
     "notistack": "^2.0.5",
     "react": "18.1.0",

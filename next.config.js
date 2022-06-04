@@ -3,10 +3,11 @@ const semver = require('semver')
 const { withSentryConfig } = require('@sentry/nextjs');
 const { name, version } = require('./package.json');
 const { execSync } = require('child_process');
-
+const { i18n } = require('./next-i18next.config');
 
 const moduleExports = {
   // Your existing module.exports
+  i18n,
   reactStrictMode: true,
   webpack: (config, { buildId }) => {
     const buildIdStringify = JSON.stringify(buildId)
@@ -15,6 +16,8 @@ const moduleExports = {
     let releaseVersion = ''
     if (process.env.ENVIRONMENT === 'production') {
       releaseVersion = `${name}@${nextVersion}-${buildIdStringify}`
+    } else if (process.env.ENVIRONMENT === 'development' ) {
+      releaseVersion = 'development'
     } else {
       nextVersion = semver.inc(version, 'patch')
       let branchName = execSync('git rev-parse --abbrev-ref HEAD').toLocaleString()
@@ -24,6 +27,9 @@ const moduleExports = {
 
     process.env.SENTRY_RELEASE = releaseVersion
     process.env.APP_VERSION = releaseVersion
+
+    // Used to config getStaticProps with next-i18next https://stackoverflow.com/questions/64926174/module-not-found-cant-resolve-fs-in-next-js-application
+    config.resolve.fallback = { fs: false, path: false };
 
     return config
   }

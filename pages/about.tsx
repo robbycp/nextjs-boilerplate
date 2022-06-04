@@ -1,1 +1,1 @@
-export { default } from '~/containers/About'
+export { default, getStaticProps } from '~/containers/About'
