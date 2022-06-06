@@ -12,6 +12,7 @@ import Link from '~/components/Link';
 import { useConfirmation } from '~/utils/confirmation';
 
 import RemoteConfig from './RemoteConfig'
+import Strapi from './Strapi'
 import Todo from './Todo'
 
 const SnackbarContainer = styled('div')`
@@ -81,7 +82,8 @@ const Home: NextPage = () => {
           Throw error send to sentry
         </Button>
         <RemoteConfig />
-        <Todo />
+        <Strapi />
+        {/* <Todo /> */}
       </Box>
       <Dialog
         maxWidth="md"
