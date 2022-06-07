@@ -1,0 +1,8 @@
+{
+  "change-locale": "Ubah bahasa menjadi ",
+  "error-with-status": "{{statusCode}} kesalahan terjadi di server",
+  "error-without-status": "Kesalahan terjadi di server",
+  "h1": "Contoh sederhana",
+  "title": "Home | next-i18next",
+  "to-home": "Menuju halaman utama"
+}
