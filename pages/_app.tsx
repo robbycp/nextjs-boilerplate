@@ -10,7 +10,7 @@ import { appWithTranslation } from 'next-i18next';
 import ConfirmationProvider from '~/utils/confirmation'
 import FlagsProvider from '~/services/firebase-remote-config';
 import Layout from '~/components/Layout'
-import Snackbar from '~/config/snackbar'
+import Snackbar from '~/utils/snackbar'
 import createEmotionCache from '~/utils/createEmotionCache';
 import theme from '~/styles/theme';
 import { GTM_ID } from '~/services/analytics';
