@@ -5,14 +5,20 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
-import { useRouter } from 'next/router';
 import type { GetStaticProps } from 'next';
 
-import Link from '../../components/Link';
+import Link from '~/components/Link';
+import { trackChangeLocale } from '~/utils/analytics-event';
+import { useTrackScreen } from '~/services/analytics';
 
 const About: NextPageWithLayout = () => {
-  const router = useRouter()
+  const trackScreen = useTrackScreen()
   const { t } = useTranslation('common');
+
+  React.useEffect(() => {
+    trackScreen('about')
+  })
+  
   return (
     <Container maxWidth="lg">
       <Box
@@ -30,10 +36,14 @@ const About: NextPageWithLayout = () => {
         <Typography variant="h4" component="h1" gutterBottom>
           {t('h1')}
         </Typography>
-        <Link href="/about" locale="id">
+        <Link href="/about" locale="id" onClick={() => {
+          trackChangeLocale('en', 'id')
+        }}>
           {t('change-locale')} indonesia
         </Link>
-        <Link href="/about" locale="en">
+        <Link href="/about" locale="en" onClick={() => {
+          trackChangeLocale('id', 'en')
+        }}>
           {t('change-locale')} english
         </Link>
         <Box maxWidth="sm">

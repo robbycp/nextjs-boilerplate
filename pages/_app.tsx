@@ -13,7 +13,7 @@ import Layout from '~/components/Layout'
 import Snackbar from '~/config/snackbar'
 import createEmotionCache from '~/utils/createEmotionCache';
 import theme from '~/styles/theme';
-import { GTM_ID, usePageAnalytics } from '~/services/analytics';
+import { GTM_ID } from '~/services/analytics';
 
 import defaultConfigSeo from '../next-seo.config'
 
@@ -27,7 +27,6 @@ interface MyAppProps extends AppPropsWithLayout {
 }
 
 export default appWithTranslation((props: MyAppProps) => {
-  usePageAnalytics()
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
 
   const getLayout = Component.getLayout ?? ((page) => 

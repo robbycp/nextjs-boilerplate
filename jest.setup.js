@@ -16,6 +16,10 @@ jest.mock("next/router", () => ({
   },
 }));
 
+window.dataLayer = {
+  push: jest.fn(() => ({}))
+}
+
 class LocalStorageMock {
   constructor() {
     this.store = {};

@@ -10,6 +10,7 @@ import { styled } from '@mui/system';
 import Dialog from '~/components/Dialog/DialogBasic'
 import Link from '~/components/Link';
 import { useConfirmation } from '~/utils/confirmation';
+import { useTrackScreen } from '~/services/analytics';
 
 import RemoteConfig from './RemoteConfig'
 import Strapi from './Strapi'
@@ -21,6 +22,7 @@ const SnackbarContainer = styled('div')`
 `
 
 const Home: NextPage = () => {
+  const trackScreen = useTrackScreen()
   // Snackbar
   const { enqueueSnackbar } = useSnackbar()
   const handleClickSnackbar = (variant: VariantType) => () => {
@@ -47,6 +49,11 @@ const Home: NextPage = () => {
       textButtonConfirm: 'Kirim',
     })
   }
+
+  React.useEffect(() => {
+    trackScreen('home')
+  })
+
   return (
     <Container maxWidth="lg">
       <Box
