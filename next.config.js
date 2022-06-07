@@ -8,7 +8,7 @@ const { i18n } = require('./next-i18next.config');
 const moduleExports = {
   // Your existing module.exports
   i18n,
-  reactStrictMode: true,
+  reactStrictMode: false,
   webpack: (config, { buildId }) => {
     const buildIdStringify = JSON.stringify(buildId)
 

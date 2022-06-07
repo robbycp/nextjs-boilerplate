@@ -62,7 +62,7 @@ export const useTrackScreen = () => {
       gtmFlushProperties('screen')
     }
     const defaultScreenProperties = { ...router.query }
-    console.log('push useTrackScreen')
+
     window.dataLayer.push({
       event: 'screen_view',
       screen_properties: screenProperties
